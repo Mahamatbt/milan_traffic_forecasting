@@ -1,0 +1,6 @@
+# Kaggle notebook bootstrap.
+# Kaggle images already ship pandas, numpy, scipy, sklearn, statsmodels,
+# lightgbm, torch (CUDA), matplotlib, psutil, requests, tqdm, PyYAML and
+# pyarrow. Only the genuinely missing / version-sensitive packages go here.
+polars>=1.20.0
+optuna==4.1.0

@@ -1,0 +1,51 @@
+# ---- Data -------------------------------------------------------------
+# Raw CDR text files (~19.4 GiB) and per-day interim blocks are never committed.
+data/raw/*
+!data/raw/grid/
+data/interim/
+# Processed artefacts are large, EXCEPT the extracted series which are the
+# reproducibility path for anyone without the 20 GB download.
+# Small processed artefacts ARE committed: together (~320 KB) they make the
+# exploratory analysis, area selection and modelling reproducible from a clean
+# clone without the 19.4 GiB download. Only the 341 MB matrix is excluded.
+data/processed/*
+!data/processed/.gitkeep
+!data/processed/selected_series.parquet
+!data/processed/totals.parquet
+!data/processed/timestamps.parquet
+!data/processed/square_ids.npy
+!data/processed/matrix_report.json
+
+# ---- Python -----------------------------------------------------------
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ---- Results ----------------------------------------------------------
+# Figures are regenerated; experiments.csv and environment*.json ARE committed
+# as the experimentation audit trail.
+results/figures/*
+!results/figures/.gitkeep
+results/predictions/*
+!results/predictions/.gitkeep
+# Prediction series ARE committed (~312 KB). They were originally treated as
+# regenerable, which is true of the harmonic ARIMA and LightGBM columns but not
+# of the LSTM: reproducing those needs a CUDA device, and on CPU the nine fits
+# take roughly 31 hours. Without them a clean clone cannot redraw the figures
+# or recheck the reported numbers against the series they came from.
+!results/predictions/*.parquet
+results/checkpoints/
+
+# ---- OS / editor ------------------------------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Local secrets: Dataverse guestbook identity (DATAVERSE_GB_*)
+.env

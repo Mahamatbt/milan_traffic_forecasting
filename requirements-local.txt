@@ -1,0 +1,16 @@
+# Local development install (Windows, CPU-only torch).
+#   python -m venv .venv
+#   .venv\Scripts\pip install -r requirements-local.txt
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+-r requirements.txt
+
+# Geospatial: only needed for the Milano Grid choropleth in Phase 3.
+# Imported defensively in src/eda.py so the pipeline runs without it.
+geopandas==1.0.1
+
+# Dev tooling
+pytest==8.3.4
+ruff==0.8.4
+jupyter==1.1.1
+nbformat==5.10.4
