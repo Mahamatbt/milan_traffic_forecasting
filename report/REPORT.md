@@ -75,7 +75,7 @@ The strongest reason not to assume a neural model will win comes from outside th
 
 ### 2.5 How to measure accuracy
 
-Hyndman and Koehler [10] show that many common accuracy measures break down in situations that come up all the time. They propose the mean absolute scaled error (MASE) as a general-purpose alternative. MASE does not depend on scale, and it is easy to read: a value below 1 means the model beats a naive one-step forecast on the training data. I need that property because the three areas differ by roughly fivefold in mean volume. MAPE needs a warning instead of silent use, because it is undefined at zero and unstable near it. The three areas have minimum values of 47.3, 55.8 and 80.2, so no near-zero denominators come up. I checked this instead of assuming it.
+Hyndman and Koehler [10] show that many common accuracy measures break down in situations that come up all the time. They propose the mean absolute scaled error (MASE) as a general-purpose alternative. MASE does not depend on scale, and it is easy to read: a value below 1 means the model beats a naive one-step forecast on the training data. I need that property because the three areas have similar mean volume but different daily patterns, so an MAE on one says little about another. MAPE needs a warning instead of silent use, because it is undefined at zero and unstable near it. The three areas have minimum values of 55.8, 72.5 and 109.0, so no near-zero denominators come up. I checked this instead of assuming it.
 
 ### 2.6 The resulting line-up
 
@@ -160,7 +160,7 @@ An **absent cell** is a `(square, time)` pair with no record in the raw file. A 
 
 A **missing interval** is a timestamp that is missing from the grid altogether. That would be real data loss. My plan for this case was to interpolate gaps of up to three intervals and leave longer gaps as `NaN`, with the count reported. If any gap fell inside the evaluation week, the code was to stop with an error instead of filling it in. In the end, the matrix has **zero missing intervals and zero `NaN` values**. The timestamp grid is complete, every local day has exactly 144 intervals, and the plan never ran.
 
-Absent cells are not spread evenly across the period. They stay near 22 per day until 21 November, step up around 23 November, and reach 1,463 per day over Christmas. They peak at **2,267 on 26 December** (Santo Stefano). By split, the average is 220 per day in training, 864 in the test week, and 1,463 in the held-out stress period. That is about four times more empty cells in evaluation than in training. Raw record counts over the same window fall smoothly by 6.7%, with no step. So quiet outer cells are going completely silent as overall activity drops. It is not a collection failure. The pattern follows human activity, and it peaks over the holidays. That supports reading absent cells as silence. It does not affect the forecasting experiments, because the three areas I model have no zero value at any point in any split. Their minimums are 47.3, 55.8 and 80.2.
+Absent cells are not spread evenly across the period. They stay near 22 per day until 21 November, step up around 23 November, and reach 1,463 per day over Christmas. They peak at **2,267 on 26 December** (Santo Stefano). By split, the average is 220 per day in training, 864 in the test week, and 1,463 in the held-out stress period. That is about four times more empty cells in evaluation than in training. Raw record counts over the same window fall smoothly by 6.7%, with no step. So quiet outer cells are going completely silent as overall activity drops. It is not a collection failure. The pattern follows human activity, and it peaks over the holidays. That supports reading absent cells as silence. It does not affect the forecasting experiments, because the three areas I model have no zero value at any point in any split. Their minimums are 55.8, 72.5 and 109.0.
 
 ### 3.6 Reproducibility
 
@@ -198,7 +198,7 @@ The three areas I model are **square 5161** (rank 1), **square 5059** (rank 2) a
 
 ![Series, first fortnight](figures/03_series_first_fortnight.png)
 
-**Figure 3 —** Each of the three areas over the first two weeks of the observation period. Each panel has its own vertical scale. The areas differ by roughly fivefold in volume, and a shared scale would squash the smaller ones into a flat line.
+**Figure 3 —** Each of the three areas over the first two weeks of the observation period. Each panel has its own vertical scale, so each area's daily shape is easy to see.
 
 ![Normalised overlay](figures/04_series_overlay_normalised.png)
 
@@ -224,7 +224,7 @@ The weekly patterns set the areas apart even more. The grid geometry published w
 | 5059 | 45.4634, 9.1874 | Duomo | 226 m | 0.861 |
 | 5259 | 45.4676, 9.1874 | Teatro alla Scala | 167 m | 0.425 |
 
-All three cells are within 500 m of the Duomo, yet their weekend ratios run from **0.425 to 1.384**. That is a factor of 3.3 between cells only a few hundred metres apart. Square 5259 is closest to Teatro alla Scala and the offices around Piazza della Scala, and it empties out at weekends. Square 5161, next to the Galleria Vittorio Emanuele II, fills up. Square 5059 sits between the two, and its weekend ratio of 0.861 reflects a mix of the surrounding uses.
+All three cells are within 500 m of the Duomo, yet their weekend ratios run from **0.425 to 1.384**. That is a factor of 3.3 between cells only a few hundred metres apart. Square 5259 is closest to Teatro alla Scala and the offices around Piazza della Scala, and it empties out at weekends. Square 5161, next to the Galleria Vittorio Emanuele II, fills up. Square 5059 sits between the two, and its weekend ratio of 0.861 probably reflects a mix of the surrounding uses.
 
 This supports the case from Section 4.2 in a second way. It is not only that the three highest-traffic cells are next to each other. The character of the traffic changes over shorter distances than the volume ranking suggests. So ranking cells by total activity tells you nothing about how they behave over time.
 
@@ -440,9 +440,9 @@ in-sample naive forecast.**
 
 **Figure 9 —** MASE per model, grouped by area, test week. The dashed line marks MASE 1.0, the in-sample naive forecast.
 
-The dynamic harmonic regression has the best mean MASE and the best result on two of the three areas. It beats persistence by **15.1%** on average across areas. On square 5161 the three-seed LSTM ensemble does better, with 0.233 against the harmonic model's 0.241.
+The dynamic harmonic regression has the best mean MASE and ties or wins on two of the three areas. It beats persistence by **15.1%** on average across areas. On square 5161 the three-seed LSTM ensemble does better, with 0.233 against the harmonic model's 0.241.
 
-On average across areas, **all three models beat persistence**. In the extreme hotspots of the city centre, traffic is more predictable than in the wider network. Seasonal naive is far worse than every other model. So the daily cycle alone is not a good enough forecast at this resolution.
+On average across areas, **all three models beat persistence**. I did not test other areas, so this may not hold elsewhere. Seasonal naive is far worse than every other model. So the daily cycle alone is not a good enough forecast at this resolution.
 
 The harmonic model does this with **22 parameters**. LightGBM has 19,639, and a single LSTM has 202,369.
 
@@ -508,7 +508,7 @@ Figures 10–18 show each model against the observed series over the test week, 
 
 ### 6.3 Seed variance
 
-The three-seed protocol matters. On square 5059 the LSTM scores an MAE of 71.08 ± 3.12, a relative standard deviation of 4.4%. On square 5259 it scores 64.58 ± 1.46, a relative standard deviation of 2.3%. In both cases the seed variance is small compared with the gap between the LSTM and persistence (81.52 and 75.97 respectively). That makes the comparison reliable, but a single-seed result would have given a number with nothing to say about it.
+The three-seed protocol matters. On square 5161 the LSTM seed mean (92.01 ± 3.03) is within noise of persistence (92.80). On square 5059 the LSTM scores an MAE of 71.08 ± 3.12, a relative standard deviation of 4.4%. On square 5259 it scores 64.58 ± 1.46, a relative standard deviation of 2.3%. In both cases the seed variance is small compared with the gap between the LSTM and persistence (81.52 and 75.97 respectively). That makes the comparison reliable, but a single-seed result would have given a number with nothing to say about it.
 
 ### 6.4 Computational cost
 
@@ -573,15 +573,15 @@ Absolute error grows with traffic level, so every model's error follows the dail
 | 5161 | persistence | 88.36 | 103.90 | 1.18 |
 | 5161 | harmonic ARIMA | **74.96** | 105.33 | **1.41** |
 | 5161 | LightGBM | 82.65 | 96.45 | 1.17 |
-| 5161 | LSTM | 77.26 | 89.62 | 1.16 |
+| 5161 | LSTM (ensemble) | 77.26 | 89.62 | 1.16 |
 | 5059 | persistence | 84.55 | 73.92 | 0.87 |
 | 5059 | harmonic ARIMA | 67.02 | 63.69 | 0.95 |
 | 5059 | LightGBM | 70.36 | 65.25 | 0.93 |
-| 5059 | LSTM | 72.68 | 59.14 | 0.81 |
+| 5059 | LSTM (ensemble) | 72.68 | 59.14 | 0.81 |
 | 5259 | persistence | 89.49 | 42.16 | 0.47 |
 | 5259 | harmonic ARIMA | 71.59 | 40.62 | 0.57 |
 | 5259 | LightGBM | 71.52 | 44.20 | 0.62 |
-| 5259 | LSTM | 71.38 | 41.60 | 0.58 |
+| 5259 | LSTM (ensemble) | 71.38 | 41.60 | 0.58 |
 
 **Table 15 — Worst contiguous six-hour windows, test week.** A `ratio` above 1 means persistence would have done better over exactly that stretch.
 
@@ -594,7 +594,7 @@ Absolute error grows with traffic level, so every model's error follows the dail
 | 5059 | LSTM | 2013-12-19 10:50 | 134.5 | 113.5 | **1.19** |
 | 5259 | LightGBM | 2013-12-17 13:10 | 150.2 | 127.6 | **1.18** |
 
-The worst six-hour windows are mild. The largest ratio is 1.28, meaning persistence would have been 28% better over that stretch. The failures are spread across models and areas, concentrated in the afternoon on weekdays. No model has a systematic failure pattern like a recurring morning or weekend collapse.
+The worst six-hour windows are mild. The largest ratio is 1.28, meaning persistence would have been 28% better over that stretch. The failures are spread across models and areas, concentrated around midday, mostly on weekdays. No model has a systematic failure pattern like a recurring morning or weekend collapse.
 
 **Harmonic ARIMA's advantage on square 5161 holds only on weekdays.** It is the best model of all on weekdays (MAE 74.96), but it is worse than persistence at weekends (105.33 against 103.90), a weekend penalty of 1.41. Its overall win on that area comes entirely from working days. Square 5259 shows the opposite pattern: all models and persistence itself have a weekend penalty below 1.0, because the office-district traffic drops sharply at weekends.
 
@@ -613,7 +613,7 @@ The stress split runs from 23 December to 1 January. It holds four of the eight 
 | persistence (absolute MASE) | 0.198 | 0.212 | 0.064 |
 | harmonic ARIMA | +9.0% | +16.4% | **−7.3%** |
 | LightGBM | +68.6% | +53.9% | +49.6% |
-| LSTM | +72.1% | +112.6% | +103.5% |
+| LSTM (ensemble) | +72.1% | +112.6% | +103.5% |
 | seasonal naive | +538.6% | +509.7% | +887.4% |
 
 ![Cross-area MASE, stress](figures/cross_area_mase_stress.png)
@@ -628,7 +628,7 @@ The stress split runs from 23 December to 1 January. It holds four of the eight 
 
 The two baselines also move in **opposite directions**, which shows what the holidays do to the series. Persistence gets easier (MASE 0.267 → 0.198 on square 5161) because traffic gets smoother. Seasonal naive falls apart past MASE 1.0 (0.975 → 1.266). That is worse than the in-sample naive forecast it is scaled against. The weekly pattern it relies on is exactly what Christmas and New Year break.
 
-I **predicted LightGBM's failure before running the split**. My design notes say a tree ensemble cannot predict beyond the range of its training targets. They name the stress split as the place where that limit should show. LightGBM is the worst model apart from seasonal naive on all three areas. This is the clearest result in the study. The ranking from a well-behaved week does not survive a change in the data. And the model with the most capacity to fit the training data is the one that does worst outside it.
+I predicted before running the split that LightGBM would struggle, because a tree ensemble cannot predict beyond the range of its training targets. It did: it is 50–69% worse than persistence. But it is not the worst learned model. The LSTM, the largest at 202,369 parameters, degrades more on all three areas. This is the clearest result in the study. The ranking from a well-behaved week does not survive a change in the data, and the more flexible models do worst outside it.
 
 ### 7.4 Limitations
 
@@ -649,7 +649,7 @@ The **dynamic harmonic regression did best**. It had the lowest mean MASE (0.202
 
 Three findings are worth taking forward.
 
-**Complexity paid off only while the data stayed the same.** On the held-out holiday period, persistence wins two of three areas outright. Both learned models get 69–140% worse, while the smallest model stays within 9%. The ranking from the test week does not survive a change in the data.
+**Complexity paid off only while the data stayed the same.** On the held-out holiday period, persistence wins two of three areas outright. LightGBM gets 50–69% worse than persistence and the LSTM 72–113% worse. The harmonic regression stays within 16% and beats persistence on one area. The ranking from the test week does not survive a change in the data.
 
 **The baseline is part of the result.** With a lag-1 autocorrelation of 0.987, persistence gets a MASE of 0.145–0.302 and an R² above 0.98. All three models beat it on the test week, but the margins are modest, and over the holidays it wins. A study that only reported model errors, without this floor, would show a result that looks respectable and is worse than doing nothing. This supports the qualification that Azari *et al.* [2] attach to their own headline finding. They say there are conditions where the simpler statistical model is close to optimal at far lower complexity. It does not support the headline itself.
 
@@ -727,7 +727,7 @@ in *Advances in Neural Information Processing Systems 32 (NeurIPS 2019)*, 2019, 
 You can reproduce the analysis from a clean checkout without the 19.38 GiB download. Four files are under version control for this: the extracted series (283 KB), the study-area selection, the tuned hyperparameters, and the prediction series (312 KB).
 
 ```bash
-git clone <repository URL> && cd milan_traffic_forecasting
+git clone https://github.com/Mahamatbt/milan_traffic_forecasting.git && cd milan_traffic_forecasting
 python -m venv .venv && .venv/Scripts/activate      # source .venv/bin/activate on Linux
 pip install -r requirements.txt
 

@@ -83,8 +83,8 @@ The areas modelled are therefore:
 | Square | Rank | Mean | CV | Peak/trough | Night floor | Weekend ÷ weekday | Nearest landmark |
 |---|---:|---:|---:|---:|---:|---:|---|
 | **5161** | 1 | 1,427 | 0.968 | 99.4 | 0.130 | 1.384 | Galleria Vittorio Emanuele II (276 m) |
-| **5059** | 2 | 1,251 | 0.916 | 69.3 | 0.158 | 1.258 | Piazza del Duomo (120 m) |
-| **5259** | 3 | 1,174 | 0.942 | 90.1 | 0.141 | 1.332 | Piazza Diaz (224 m) |
+| **5059** | 2 | 1,251 | 0.768 | 30.9 | 0.235 | 0.861 | Duomo (226 m) |
+| **5259** | 3 | 1,174 | 0.939 | 47.0 | 0.333 | 0.425 | Teatro alla Scala (167 m) |
 
 These three areas represent the absolute peak volume of the Milan network. Evaluating models across them provides a robust stress test of their capacity to predict demand where resource allocation matters most.
 
@@ -506,7 +506,7 @@ counterpart was never run, so that is a CPU cost rather than half of a ratio.
 
 ## Failure analysis
 
-**No model collapsed to persistence.** With lag-1 autocorrelation at 0.987 this was a real risk, so it was tested and reported either way; copy ratios run 0.45–1.0 against persistence's 0.00. See `results/tables/copying_test.csv`.
+**No model collapsed to persistence.** With lag-1 autocorrelation at 0.987 this was a real risk, so it was tested and reported either way; copy ratios run 0.45–0.80 against persistence's 0.00. See `results/tables/copying_test.csv`.
 
 **Complexity did not survive the holidays.** On the held-out stress split (23 Dec – 1 Jan, never tuned on) persistence wins outright on two of the three top areas. While the models generalized reasonably well to normal weeks, they failed to extrapolate the anomalous behavior of extreme hotspots during major holidays. Harmonic ARIMA performed best under stress, staying closest to the persistence baseline.
 
