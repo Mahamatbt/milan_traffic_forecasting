@@ -1,0 +1,50 @@
+{
+  "recorded_at": "2026-09-19T00:03:56+0200",
+  "platform": {
+    "system": "Windows",
+    "release": "11",
+    "version": "10.0.26100",
+    "machine": "AMD64",
+    "node": "macbook"
+  },
+  "python": {
+    "version": "3.12.10",
+    "implementation": "CPython",
+    "executable": "C:\\Users\\Luqma\\dev\\projects\\coursework\\milan_traffic_forecasting\\.venv\\Scripts\\python.exe"
+  },
+  "cpu": {
+    "processor": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+    "physical_cores": 4,
+    "logical_cores": 8,
+    "max_freq_mhz": 2304.0
+  },
+  "memory": {
+    "total_bytes": 34122072064,
+    "available_bytes_at_capture": 10775752704
+  },
+  "gpu": {
+    "available": false,
+    "devices": [],
+    "torch_version": "2.5.1+cpu",
+    "cuda_compiled_version": null,
+    "note": "no CUDA device visible; training runs on CPU"
+  },
+  "packages": {
+    "numpy": "1.26.4",
+    "pandas": "2.2.3",
+    "polars": "1.20.0",
+    "pyarrow": "18.1.0",
+    "scipy": "1.14.1",
+    "statsmodels": "0.14.4",
+    "scikit-learn": "1.5.2",
+    "lightgbm": "4.5.0",
+    "torch": "2.5.1+cpu",
+    "optuna": "4.1.0",
+    "matplotlib": "3.9.2"
+  },
+  "runtime": {
+    "is_kaggle": false,
+    "kaggle_run_type": null,
+    "cwd": "C:\\Users\\Luqma\\dev\\projects\\coursework\\milan_traffic_forecasting"
+  }
+}

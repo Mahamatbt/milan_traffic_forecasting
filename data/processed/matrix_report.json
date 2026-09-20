@@ -1,0 +1,19 @@
+{
+  "shape": [
+    8928,
+    10000
+  ],
+  "n_days": 62,
+  "first_timestamp_utc": "2013-10-31T23:00:00.000000000",
+  "last_timestamp_utc": "2014-01-01T22:50:00.000000000",
+  "first_timestamp_local": "2013-11-01T00:00:00.000000000",
+  "last_timestamp_local": "2014-01-01T23:50:00.000000000",
+  "timezone": "Europe/Rome",
+  "total_absent_cells": 34682,
+  "missing_intervals": [],
+  "interpolated_intervals": [],
+  "unfilled_intervals": [],
+  "days_with_wrong_interval_count": [],
+  "total_internet": 5552894187.944575,
+  "n_nan_after_policy": 0
+}

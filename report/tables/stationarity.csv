@@ -1,0 +1,4 @@
+transform,n_obs,adf_stat,adf_pvalue,adf_lags,adf_rejects_unit_root,kpss_stat,kpss_pvalue,kpss_lags,kpss_rejects_stationarity,verdict
+raw,8928,-19.031899500097804,0.0,36,True,0.23672315969819424,0.1,56,False,stationary (both agree)
+first difference,8927,-15.160392386946114,6.603291214414003e-28,37,True,0.0033365891431978915,0.1,44,False,stationary (both agree)
+seasonal difference (lag 144),8784,-11.833015583348981,7.909224663261899e-22,30,True,0.06937813195025927,0.1,55,False,stationary (both agree)

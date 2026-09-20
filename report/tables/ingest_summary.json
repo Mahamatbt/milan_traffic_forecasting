@@ -1,0 +1,18 @@
+{
+  "n_days": 62,
+  "first_day": "2013-11-01",
+  "last_day": "2014-01-01",
+  "total_raw_rows": 319896289,
+  "download_total_min": 5.92,
+  "download_mean_s": 5.73,
+  "download_std_s": 0.64,
+  "ingest_total_min": 1.54,
+  "ingest_mean_s": 1.49,
+  "ingest_std_s": 0.1,
+  "peak_rss_max_mib": 574,
+  "peak_rss_mean_mib": 325.8,
+  "absent_total": 34682,
+  "absent_mean_per_day": 559.4,
+  "absent_max_per_day": 2267,
+  "absent_max_day": "2013-12-26"
+}

@@ -1,0 +1,15 @@
+# Normalise line endings across Windows dev and Linux/Kaggle execution.
+* text=auto eol=lf
+*.py text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+Makefile text eol=lf
+
+# Binary artefacts
+*.parquet binary
+*.npy binary
+*.png binary
+*.pdf binary
+
+# Notebooks: keep diffs readable, they are thin by design
+*.ipynb text eol=lf

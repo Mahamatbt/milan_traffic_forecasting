@@ -1,0 +1,38 @@
+[project]
+name = "milan-traffic-forecasting"
+version = "0.1.0"
+description = "Comparative analysis of sequential models for mobile network traffic forecasting"
+requires-python = ">=3.12,<3.13"
+
+[tool.pytest.ini_options]
+# Makes `from src...` importable without an editable install, so the same
+# import path works locally and inside a Kaggle notebook that cloned the repo.
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "slow: tests that take more than a few seconds",
+    "requires_data: tests that need the ingested traffic matrix on disk",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["notebooks", ".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "ARG", "PTH", "RET"]
+ignore = [
+    "E501",    # line length is handled by the formatter
+    "B008",    # function calls in argument defaults (argparse patterns)
+    "UP038",   # isinstance(x, X | Y) is slower at runtime than a tuple
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["ARG"]  # pytest fixtures are passed but not always referenced
+# Forecaster subclasses must accept the full interface signature even where a
+# particular model has no use for an argument; that is the point of the ABC.
+"src/models/*" = ["ARG002"]
+
+[tool.ruff.format]
+quote-style = "double"

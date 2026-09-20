@@ -1,0 +1,254 @@
+{
+  "best_model_gain_over_persistence": {
+    "value": 15.240750339726251,
+    "display": "15.2%",
+    "unit": "%",
+    "source": "final_metrics_all_test.csv",
+    "description": "How much the best model improves on persistence, mean MASE"
+  },
+  "best_model_test": {
+    "value": "harmonic_arima",
+    "display": "harmonic_arima",
+    "unit": "",
+    "source": "final_metrics_all_test.csv",
+    "description": "Model with the lowest mean MASE across areas on the test week"
+  },
+  "copy_ratio_min": {
+    "value": 0.45,
+    "display": "0.45",
+    "unit": "",
+    "source": "copying_test.csv",
+    "description": "Closest any model comes to persistence; 0.00 would be a collapse"
+  },
+  "experiments_logged": {
+    "value": 101,
+    "display": "101",
+    "unit": "runs",
+    "source": "experiments.csv",
+    "description": "Candidates logged across all three models, each with a rationale"
+  },
+  "forecast_squares": {
+    "value": "5161, 5059, 5259",
+    "display": "5161, 5059, 5259",
+    "unit": "",
+    "source": "selected_areas.json",
+    "description": "Cells modelled in Section 4"
+  },
+  "grid_cells_total": {
+    "value": 89280000,
+    "display": "89,280,000",
+    "unit": "cells",
+    "source": "derived",
+    "description": "Timestamps x squares"
+  },
+  "inference_ms_per_step_harmonic_arima": {
+    "value": 69.8759,
+    "display": "69.876 ms",
+    "unit": "ms",
+    "source": "timing_test.csv",
+    "description": "Wall-clock milliseconds per one-step forecast for harmonic_arima, square 5161"
+  },
+  "inference_ms_per_step_lightgbm": {
+    "value": 0.0206,
+    "display": "0.021 ms",
+    "unit": "ms",
+    "source": "timing_test.csv",
+    "description": "Wall-clock milliseconds per one-step forecast for lightgbm, square 5161"
+  },
+  "inference_ms_per_step_lstm": {
+    "value": 0.0432,
+    "display": "0.043 ms",
+    "unit": "ms",
+    "source": "timing_test.csv",
+    "description": "Wall-clock milliseconds per one-step forecast for lstm, square 5161"
+  },
+  "inference_ms_per_step_lstm_ensemble": {
+    "value": 0.1295,
+    "display": "0.130 ms",
+    "unit": "ms",
+    "source": "timing_test.csv",
+    "description": "Wall-clock milliseconds per one-step forecast for lstm_ensemble, square 5161"
+  },
+  "inference_ratio_harmonic_over_lstm": {
+    "value": 1617.4976851851852,
+    "display": "1,617x",
+    "unit": "x",
+    "source": "timing_test.csv",
+    "description": "Harmonic ARIMA inference cost per step relative to the LSTM; the cheapest model to fit is the most expensive to serve"
+  },
+  "mase_mean_harmonic_arima": {
+    "value": 0.20167333333333334,
+    "display": "0.202",
+    "unit": "MASE",
+    "source": "final_metrics_all_test.csv",
+    "description": "Mean MASE for harmonic_arima across the three areas, test week"
+  },
+  "mase_mean_lightgbm": {
+    "value": 0.20861666666666667,
+    "display": "0.209",
+    "unit": "MASE",
+    "source": "final_metrics_all_test.csv",
+    "description": "Mean MASE for lightgbm across the three areas, test week"
+  },
+  "mase_mean_lstm": {
+    "value": 0.21704666666666664,
+    "display": "0.217",
+    "unit": "MASE",
+    "source": "final_metrics_all_test.csv",
+    "description": "Mean MASE for lstm across the three areas, test week"
+  },
+  "mase_mean_lstm_ensemble": {
+    "value": 0.20240666666666665,
+    "display": "0.202",
+    "unit": "MASE",
+    "source": "final_metrics_all_test.csv",
+    "description": "Mean MASE for lstm_ensemble across the three areas, test week"
+  },
+  "mase_mean_persistence": {
+    "value": 0.23793666666666666,
+    "display": "0.238",
+    "unit": "MASE",
+    "source": "final_metrics_all_test.csv",
+    "description": "Mean MASE for persistence across the three areas, test week"
+  },
+  "mase_mean_seasonal_naive": {
+    "value": 0.8360600000000001,
+    "display": "0.836",
+    "unit": "MASE",
+    "source": "final_metrics_all_test.csv",
+    "description": "Mean MASE for seasonal_naive across the three areas, test week"
+  },
+  "matrix_mib": {
+    "value": 340.576171875,
+    "display": "340.58",
+    "unit": "MiB",
+    "source": "derived",
+    "description": "Assembled matrix as float32"
+  },
+  "models_beating_persistence": {
+    "value": 4,
+    "display": "4",
+    "unit": "models",
+    "source": "final_metrics_all_test.csv",
+    "description": "Models whose mean MASE beats persistence on the test week"
+  },
+  "models_collapsed_to_persistence": {
+    "value": 0,
+    "display": "0",
+    "unit": "models",
+    "source": "copying_test.csv",
+    "description": "Models judged to have collapsed to repeating their last input"
+  },
+  "n_days": {
+    "value": 62,
+    "display": "62",
+    "unit": "days",
+    "source": "config",
+    "description": "Observation period length"
+  },
+  "n_squares": {
+    "value": 10000,
+    "display": "10,000",
+    "unit": "cells",
+    "source": "config",
+    "description": "Grid cells in Milan"
+  },
+  "n_timestamps": {
+    "value": 8928,
+    "display": "8,928",
+    "unit": "intervals",
+    "source": "config",
+    "description": "10-minute intervals in the period"
+  },
+  "rank_5059": {
+    "value": 424,
+    "display": "424",
+    "unit": "",
+    "source": "selected_areas.json",
+    "description": "Rank of square 5059 by total activity"
+  },
+  "rank_5259": {
+    "value": 109,
+    "display": "109",
+    "unit": "",
+    "source": "selected_areas.json",
+    "description": "Rank of square 5259 by total activity"
+  },
+  "rank_5059": {
+    "value": 2,
+    "display": "2",
+    "unit": "",
+    "source": "selected_areas.json",
+    "description": "Rank of square 5059 by total activity"
+  },
+  "rank_5161": {
+    "value": 1,
+    "display": "1",
+    "unit": "",
+    "source": "selected_areas.json",
+    "description": "Rank of square 5161 by total activity"
+  },
+  "rank_5259": {
+    "value": 3,
+    "display": "3",
+    "unit": "",
+    "source": "selected_areas.json",
+    "description": "Rank of square 5259 by total activity"
+  },
+  "raw_bytes": {
+    "value": 20804803507,
+    "display": "20,804,803,507",
+    "unit": "bytes",
+    "source": "Dataverse file listing",
+    "description": "Total published dataset size"
+  },
+  "raw_gib": {
+    "value": 19.375983166508377,
+    "display": "19.38",
+    "unit": "GiB",
+    "source": "Dataverse file listing",
+    "description": "Total published dataset size"
+  },
+  "stress_areas_persistence_wins": {
+    "value": 2,
+    "display": "2",
+    "unit": "areas",
+    "source": "final_metrics_all_stress.csv",
+    "description": "Areas on the holiday split where no model beats persistence"
+  },
+  "stress_worst_ratio_harmonic_arima": {
+    "value": 1.1642191471335779,
+    "display": "1.16x",
+    "unit": "x persistence",
+    "source": "final_metrics_all_stress.csv",
+    "description": "Worst per-area MASE for harmonic_arima on the holiday split, relative to persistence on the same area"
+  },
+  "stress_worst_ratio_lightgbm": {
+    "value": 1.68563070560347,
+    "display": "1.69x",
+    "unit": "x persistence",
+    "source": "final_metrics_all_stress.csv",
+    "description": "Worst per-area MASE for lightgbm on the holiday split, relative to persistence on the same area"
+  },
+  "stress_worst_ratio_lstm": {
+    "value": 2.1433681634189963,
+    "display": "2.14x",
+    "unit": "x persistence",
+    "source": "final_metrics_all_stress.csv",
+    "description": "Worst per-area MASE for lstm on the holiday split, relative to persistence on the same area"
+  },
+  "top_three_squares": {
+    "value": "5161, 5059, 5259",
+    "display": "5161, 5059, 5259",
+    "unit": "",
+    "source": "selected_areas.json",
+    "description": "Three highest-traffic cells"
+  },
+  "top_traffic_square": {
+    "value": 5161,
+    "display": "5,161",
+    "unit": "",
+    "source": "selected_areas.json",
+    "description": "Highest-traffic cell"
+  }
+}

@@ -1,0 +1,64 @@
+# Authoritative configuration for the Milan traffic forecasting study.
+# Every script takes --config; nothing below may be hardcoded in src/.
+# Environment-specific overrides live in config/kaggle.yaml.
+
+env: local
+
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  results: results
+
+dataset:
+  doi_traffic: "doi:10.7910/DVN/EGZHFV"
+  doi_grid: "doi:10.7910/DVN/QJWLFU"
+  dataverse_base: "https://dataverse.harvard.edu"
+  start_date: "2013-11-01"
+  end_date: "2014-01-01"        # inclusive -> 62 daily files
+  timezone: "Europe/Rome"
+  interval_minutes: 10
+  n_squares: 10000
+  daily_period: 144             # 24 h at 10-minute resolution
+  weekly_period: 1008           # 7 d at 10-minute resolution
+
+ingest:
+  # Delete each raw .txt once its per-day parquet is written. Essential on
+  # Kaggle (scratch is ~60 GB and not persisted); optional locally.
+  delete_raw_after_ingest: false
+  # Empty `internet` field means no CDR activity in that interval.
+  null_internet_fill: 0.0
+  compression: zstd
+
+areas:
+  # Resolved empirically in Phase 3 and written to
+  # results/tables/selected_areas.json, which is the runtime source of truth.
+  top_traffic: null
+  fixed: [4159, 4556]
+  appendix_top2_top3: null
+
+splits:
+  # Inclusive of both endpoints at day granularity in Europe/Rome.
+  train:      ["2013-11-01", "2013-12-08"]   # 38 d -> 5472 points
+  validation: ["2013-12-09", "2013-12-15"]   #  7 d -> 1008 points
+  test:       ["2013-12-16", "2013-12-22"]   #  7 d -> 1008 points, Mon-Sun
+  stress:     ["2013-12-23", "2014-01-01"]   # 10 d -> 1440 points, NEVER tuned on
+
+missing_data:
+  # Linear interpolation only for short gaps; longer gaps stay NaN and are
+  # reported. A gap inside the test week is an escalation, not a fill.
+  max_interpolate_gap: 3
+  escalate_if_in_test: true
+
+preprocessing:
+  transform: log1p
+  scaler: standard              # fit on train split ONLY
+  sequence_length: 144          # tuning axis in Phase 5
+  calendar_features: true       # ablated in Phase 5
+
+evaluation:
+  horizon: 1                    # one-step-ahead (10 minutes)
+  seasonal_period: 144          # for MASE and seasonal-naive
+  mape_zero_threshold: 1.0      # points below this are reported separately
+
+seeds: [0, 1, 2]

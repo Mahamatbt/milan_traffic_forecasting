@@ -1,0 +1,53 @@
+{
+  "split": "test",
+  "areas": [
+    5161,
+    5059,
+    5259
+  ],
+  "figures": [
+    "results/figures/forecast_test_5161_harmonic_arima.png",
+    "results/figures/forecast_test_5161_lightgbm.png",
+    "results/figures/forecast_test_5161_lstm.png",
+    "results/figures/error_by_hour_test_5161.png",
+    "results/figures/error_heatmap_test_5161_harmonic_arima.png",
+    "results/figures/error_heatmap_test_5161_lightgbm.png",
+    "results/figures/error_heatmap_test_5161_lstm.png",
+    "results/figures/residual_acf_test_5161.png",
+    "results/figures/cross_correlation_test_5161.png",
+    "results/figures/forecast_test_5059_harmonic_arima.png",
+    "results/figures/forecast_test_5059_lightgbm.png",
+    "results/figures/forecast_test_5059_lstm.png",
+    "results/figures/error_by_hour_test_5059.png",
+    "results/figures/error_heatmap_test_5059_harmonic_arima.png",
+    "results/figures/error_heatmap_test_5059_lightgbm.png",
+    "results/figures/error_heatmap_test_5059_lstm.png",
+    "results/figures/residual_acf_test_5059.png",
+    "results/figures/cross_correlation_test_5059.png",
+    "results/figures/forecast_test_5259_harmonic_arima.png",
+    "results/figures/forecast_test_5259_lightgbm.png",
+    "results/figures/forecast_test_5259_lstm.png",
+    "results/figures/error_by_hour_test_5259.png",
+    "results/figures/error_heatmap_test_5259_harmonic_arima.png",
+    "results/figures/error_heatmap_test_5259_lightgbm.png",
+    "results/figures/error_heatmap_test_5259_lstm.png",
+    "results/figures/residual_acf_test_5259.png",
+    "results/figures/cross_correlation_test_5259.png",
+    "results/figures/cross_area_mase_test.png"
+  ],
+  "tables": [
+    "results/tables/copying_test.csv",
+    "results/tables/failure_windows_test.csv",
+    "results/tables/error_by_daytype_test.csv",
+    "results/tables/error_by_hour_test.csv",
+    "results/tables/cross_area_mase_test.csv"
+  ],
+  "copying_verdicts": {
+    "persistence": "collapsed",
+    "seasonal_naive": "independent",
+    "harmonic_arima": "near-persistence",
+    "lightgbm": "independent",
+    "lstm": "independent",
+    "lstm_ensemble": "independent"
+  }
+}

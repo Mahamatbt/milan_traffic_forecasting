@@ -1,0 +1,20 @@
+# Kaggle overrides. Merged over config/default.yaml by src/config.py when
+# the Kaggle environment is detected or --config config/kaggle.yaml is passed.
+#
+# Disk budget on Kaggle:
+#   /kaggle/working  ~20 GB, persisted via Save Version -> outputs live here
+#   /kaggle/temp     ~60 GB, NOT persisted              -> raw downloads here
+# The 20 GB of raw text therefore never touches /kaggle/working.
+
+env: kaggle
+
+paths:
+  raw: /kaggle/temp/raw
+  interim: /kaggle/working/interim
+  processed: /kaggle/working/processed
+  results: /kaggle/working/results
+
+ingest:
+  # Mandatory here: stream download -> parquet -> delete, keeping peak disk
+  # around 1 GB rather than 20 GB.
+  delete_raw_after_ingest: true

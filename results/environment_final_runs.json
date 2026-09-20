@@ -1,0 +1,64 @@
+{
+  "recorded_at": "2026-09-16T13:37:52+0000",
+  "platform": {
+    "system": "Linux",
+    "release": "6.12.90+",
+    "version": "#1 SMP Sat May 30 15:40:53 UTC 2026",
+    "machine": "x86_64",
+    "node": "d1d84a9b998b"
+  },
+  "python": {
+    "version": "3.12.13",
+    "implementation": "CPython",
+    "executable": "/usr/bin/python3"
+  },
+  "cpu": {
+    "processor": "x86_64",
+    "physical_cores": 2,
+    "logical_cores": 4,
+    "max_freq_mhz": 2000.2
+  },
+  "memory": {
+    "total_bytes": 33659379712,
+    "available_bytes_at_capture": 31928827904
+  },
+  "gpu": {
+    "available": true,
+    "devices": [
+      {
+        "index": 0,
+        "name": "Tesla T4",
+        "total_memory_bytes": 15636037632,
+        "multi_processor_count": 40,
+        "capability": "7.5"
+      },
+      {
+        "index": 1,
+        "name": "Tesla T4",
+        "total_memory_bytes": 15636037632,
+        "multi_processor_count": 40,
+        "capability": "7.5"
+      }
+    ],
+    "torch_version": "2.10.0+cu128",
+    "cuda_compiled_version": "12.8"
+  },
+  "packages": {
+    "numpy": "2.0.2",
+    "pandas": "2.3.3",
+    "polars": "1.20.0",
+    "pyarrow": "24.0.0",
+    "scipy": "1.16.3",
+    "statsmodels": "0.14.6",
+    "scikit-learn": "1.6.1",
+    "lightgbm": "4.6.0",
+    "torch": "2.10.0+cu128",
+    "optuna": "4.1.0",
+    "matplotlib": "3.10.0"
+  },
+  "runtime": {
+    "is_kaggle": true,
+    "kaggle_run_type": "Interactive",
+    "cwd": "/kaggle/working"
+  }
+}

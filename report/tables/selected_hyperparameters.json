@@ -1,0 +1,45 @@
+{
+  "tuning_area": 5161,
+  "harmonic_arima": {
+    "k_daily": 6,
+    "k_weekly": 2,
+    "order": [
+      3,
+      0,
+      1
+    ],
+    "use_log": true,
+    "n_params": 22,
+    "aic": -6096.765161203079,
+    "aicc": -6096.579439052225,
+    "bic": -5951.41443780945,
+    "fit_wall_s": 18.619
+  },
+  "lightgbm": {
+    "num_leaves": 68,
+    "learning_rate": 0.034488916163203646,
+    "n_estimators": 2000,
+    "min_child_samples": 31,
+    "feature_fraction": 0.7636285304337359,
+    "bagging_fraction": 0.6961621596774974,
+    "lambda_l2": 4.502028192650841,
+    "n_lags": 9,
+    "max_lag": 1008,
+    "use_calendar": true,
+    "use_log": true,
+    "best_iteration": 320
+  },
+  "lstm": {
+    "sequence_length": 144,
+    "hidden_size": 128,
+    "num_layers": 2,
+    "dropout": 0.0,
+    "learning_rate": 0.001,
+    "batch_size": 32,
+    "max_epochs": 30,
+    "patience": 5,
+    "weight_decay": 0.0001,
+    "use_calendar": true,
+    "best_epoch": 10
+  }
+}
