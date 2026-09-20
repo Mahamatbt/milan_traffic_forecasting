@@ -81,7 +81,7 @@ pp. 8024–8035.
 _To be completed before submission:_
 
 - **Source code repository:** `https://github.com/Mahamatbt/milan_traffic_forecasting`
-- **Demo video:** `https://youtu.be/mbB-tx4SPrg`
+- **Demo video:** `https://youtu.be/Mn7JPndRAu0`
 
 ---
 

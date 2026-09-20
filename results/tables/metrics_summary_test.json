@@ -1,0 +1,12 @@
+{
+  "split": "test",
+  "areas": [
+    5161,
+    5059,
+    5259
+  ],
+  "models": [
+    "persistence",
+    "seasonal_naive"
+  ]
+}
