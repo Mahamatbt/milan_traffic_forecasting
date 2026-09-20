@@ -194,15 +194,15 @@ This finding decided the design of the study. The heaviest load in the network s
 
 The three areas I model are **square 5161** (rank 1), **square 5059** (rank 2) and **square 5259** (rank 3).
 
-### 4.3 The five series and their characteristics
+### 4.3 The three series and their characteristics
 
 ![Series, first fortnight](figures/03_series_first_fortnight.png)
 
-**Figure 3 —** Each of the five areas over the first two weeks of the observation period. Each panel has its own vertical scale. The areas differ by a factor of ten in volume, and a shared scale would squash the smaller ones into a flat line.
+**Figure 3 —** Each of the three areas over the first two weeks of the observation period. Each panel has its own vertical scale. The areas differ by roughly fivefold in volume, and a shared scale would squash the smaller ones into a flat line.
 
 ![Normalised overlay](figures/04_series_overlay_normalised.png)
 
-**Figure 4 —** The same five series, each divided by its own maximum. This compares shape, not volume. All five have a clear daily cycle and a clear weekly change. Activity drops overnight and rises through the morning.
+**Figure 4 —** The same three series, each divided by its own maximum. This compares shape, not volume. All three have a clear daily cycle and a clear weekly change. Activity drops overnight and rises through the morning.
 
 **Table 3 — Per-area characteristics over the full period.**
 
@@ -223,12 +223,8 @@ The weekly patterns set the areas apart even more. The grid geometry published w
 | 5161 | 45.4655, 9.1934 | Galleria Vittorio Emanuele II | 276 m | 1.384 |
 | 5059 | 45.4634, 9.1874 | Duomo | 226 m | 0.861 |
 | 5259 | 45.4676, 9.1874 | Teatro alla Scala | 167 m | 0.425 |
-| 4159 | 45.4443, 9.1873 | Università Bocconi | 365 m | 0.587 |
-| 4556 | 45.4528, 9.1783 | Navigli | 273 m | 1.140 |
 
-Two of the five match their time pattern closely. Square 4556 is 273 m from the Navigli, Milan's main nightlife district. It has the highest night floor of the five and a weekend ratio above one. That is what you would expect from an area that stays busy late and is busier at weekends. Square 4159 is 365 m from Università Bocconi. Its weekend ratio of 0.587, together with a high night floor, is what a university district with many residents would produce.
-
-The three busiest cells are the more interesting result, and they complicate that reading. All three are within 500 m of the Duomo, yet their weekend ratios run from **0.425 to 1.384**. That is a factor of 3.3 between cells only a few hundred metres apart. Square 5259 is closest to Teatro alla Scala and the offices around Piazza della Scala, and it empties out at weekends. Square 5161, next to the Galleria Vittorio Emanuele II, fills up. So being near a landmark tells you something about where a cell is, but it does not fully explain the traffic.
+All three cells are within 500 m of the Duomo, yet their weekend ratios run from **0.425 to 1.384**. That is a factor of 3.3 between cells only a few hundred metres apart. Square 5259 is closest to Teatro alla Scala and the offices around Piazza della Scala, and it empties out at weekends. Square 5161, next to the Galleria Vittorio Emanuele II, fills up. Square 5059 sits between the two, and its weekend ratio of 0.861 reflects a mix of the surrounding uses.
 
 This supports the case from Section 4.2 in a second way. It is not only that the three highest-traffic cells are next to each other. The character of the traffic changes over shorter distances than the volume ranking suggests. So ranking cells by total activity tells you nothing about how they behave over time.
 
@@ -343,7 +339,7 @@ I fit all transforms on the training split only. The scaler raises an error if a
 
 ### 5.2 Metrics
 
-I report MAE, RMSE, MAPE, sMAPE, R² and MASE. I use MASE to compare across areas, following Hyndman and Koehler [10]. The three areas differ by roughly a factor of ten in volume, so raw errors cannot be compared. An MAE of 83.6 on square 5161 and 13.6 on square 4159 do not tell you which was forecast better. MASE divides each error by the naive in-sample error of that area's own training split. A value below 1 means the model beats a naive forecast, and values can be compared across areas.
+I report MAE, RMSE, MAPE, sMAPE, R² and MASE. I use MASE to compare across areas, following Hyndman and Koehler [10]. The three areas differ in volume, so raw errors cannot be compared. An MAE of 83.6 on square 5161 and 62.7 on square 5259 do not tell you which was forecast better. MASE divides each error by the naive in-sample error of that area's own training split. A value below 1 means the model beats a naive forecast, and values can be compared across areas.
 
 I always compute the MASE denominator on the **training** series, including when I score the validation, test and stress splits. Scaling by the window being scored would let an easy week flatter a model.
 
@@ -488,31 +484,31 @@ Figures 10–18 show each model against the observed series over the test week, 
 ![5161 lstm](figures/forecast_test_5161_lstm.png)
 **Figure 12 —** LSTM (3-seed mean forecast), square 5161.
 
-**Square 4159 (rank 424, lowest traffic of the three).**
+**Square 5059 (rank 2).**
 
-![4159 harmonic](figures/forecast_test_4159_harmonic_arima.png)
-**Figure 13 —** Harmonic ARIMA, square 4159.
+![5059 harmonic](figures/forecast_test_5059_harmonic_arima.png)
+**Figure 13 —** Harmonic ARIMA, square 5059.
 
-![4159 lightgbm](figures/forecast_test_4159_lightgbm.png)
-**Figure 14 —** LightGBM, square 4159.
+![5059 lightgbm](figures/forecast_test_5059_lightgbm.png)
+**Figure 14 —** LightGBM, square 5059.
 
-![4159 lstm](figures/forecast_test_4159_lstm.png)
-**Figure 15 —** LSTM, square 4159. The morning ramp is where this model fails. See Section 7.2.
+![5059 lstm](figures/forecast_test_5059_lstm.png)
+**Figure 15 —** LSTM (3-seed mean forecast), square 5059.
 
-**Square 4556 (rank 109, highest night floor).**
+**Square 5259 (rank 3).**
 
-![4556 harmonic](figures/forecast_test_4556_harmonic_arima.png)
-**Figure 16 —** Harmonic ARIMA, square 4556.
+![5259 harmonic](figures/forecast_test_5259_harmonic_arima.png)
+**Figure 16 —** Harmonic ARIMA, square 5259.
 
-![4556 lightgbm](figures/forecast_test_4556_lightgbm.png)
-**Figure 17 —** LightGBM, square 4556.
+![5259 lightgbm](figures/forecast_test_5259_lightgbm.png)
+**Figure 17 —** LightGBM, square 5259.
 
-![4556 lstm](figures/forecast_test_4556_lstm.png)
-**Figure 18 —** LSTM, square 4556.
+![5259 lstm](figures/forecast_test_5259_lstm.png)
+**Figure 18 —** LSTM (3-seed mean forecast), square 5259.
 
 ### 6.3 Seed variance
 
-The three-seed protocol matters. On square 4159 the LSTM scores an MAE of 21.16 ± 4.59, a relative standard deviation of 22%. On square 4556 it scores 28.85 ± 1.79, against 28.86 for persistence. That gap is much smaller than the spread, so the two cannot be told apart on this evidence. A single-seed result would have been a number with nothing to say about it.
+The three-seed protocol matters. On square 5059 the LSTM scores an MAE of 71.08 ± 3.12, a relative standard deviation of 4.4%. On square 5259 it scores 64.58 ± 1.46, a relative standard deviation of 2.3%. In both cases the seed variance is small compared with the gap between the LSTM and persistence (81.52 and 75.97 respectively). That makes the comparison reliable, but a single-seed result would have given a number with nothing to say about it.
 
 ### 6.4 Computational cost
 
@@ -547,12 +543,12 @@ The measure is the **copy ratio**. It is the mean distance between a model's for
 | Model | copy ratio (range across areas) | verdict |
 |---|---|---|
 | persistence | 0.00 | collapsed by definition |
-| harmonic ARIMA | 0.54 – 0.64 | independent |
-| LSTM | 0.71 – 1.14 | independent |
-| LightGBM | 0.77 – 0.93 | independent |
-| seasonal naive | 2.70 – 3.68 | independent |
+| harmonic ARIMA | 0.45 – 0.63 | near-persistence to independent |
+| LSTM | 0.68 – 0.71 | independent |
+| LightGBM | 0.72 – 0.80 | independent |
+| seasonal naive | 2.13 – 6.23 | independent |
 
-**No model collapsed into persistence.** The closest is harmonic ARIMA on square 4159 at 0.54, which is also its best result. On that area the model really is close to persistence, and it still beats it.
+**No model collapsed into persistence.** The closest is harmonic ARIMA on square 5259 at 0.45, which earns a near-persistence verdict. On that area the model really is close to persistence, and it still beats it.
 
 One point about method is worth stating, because the obvious test gives the wrong answer.
 
@@ -566,9 +562,9 @@ When I cross-correlate forecasts with observations, every model, including the b
 
 Absolute error grows with traffic level, so every model's error follows the daily cycle. What separates the models is where their error peaks *compared with the others*.
 
-![Error by hour](figures/error_by_hour_test_4159.png)
+![Error by hour](figures/error_by_hour_test_5059.png)
 
-**Figure 20 —** Mean absolute error against hour of day, square 4159, one line per model. The LSTM's extra error is concentrated in the morning.
+**Figure 20 —** Mean absolute error against hour of day, square 5059, one line per model.
 
 **Table 14 — Error by day type, test week.**
 
@@ -578,29 +574,29 @@ Absolute error grows with traffic level, so every model's error follows the dail
 | 5161 | harmonic ARIMA | **74.96** | 105.33 | **1.41** |
 | 5161 | LightGBM | 82.65 | 96.45 | 1.17 |
 | 5161 | LSTM | 77.26 | 89.62 | 1.16 |
-| 4159 | persistence | 17.41 | 12.31 | 0.71 |
-| 4159 | harmonic ARIMA | 14.32 | 11.87 | 0.83 |
-| 4159 | LightGBM | 16.20 | 12.74 | 0.79 |
-| 4159 | LSTM | **24.13** | 12.03 | **0.50** |
-| 4556 | persistence | 29.53 | 27.19 | 0.92 |
-| 4556 | harmonic ARIMA | 25.83 | 25.97 | 1.01 |
-| 4556 | LightGBM | 29.14 | 31.91 | 1.10 |
-| 4556 | LSTM | 27.54 | 29.01 | 1.05 |
+| 5059 | persistence | 84.55 | 73.92 | 0.87 |
+| 5059 | harmonic ARIMA | 67.02 | 63.69 | 0.95 |
+| 5059 | LightGBM | 70.36 | 65.25 | 0.93 |
+| 5059 | LSTM | 72.68 | 59.14 | 0.81 |
+| 5259 | persistence | 89.49 | 42.16 | 0.47 |
+| 5259 | harmonic ARIMA | 71.59 | 40.62 | 0.57 |
+| 5259 | LightGBM | 71.52 | 44.20 | 0.62 |
+| 5259 | LSTM | 71.38 | 41.60 | 0.58 |
 
 **Table 15 — Worst contiguous six-hour windows, test week.** A `ratio` above 1 means persistence would have done better over exactly that stretch.
 
 | Area | Model | Window start | MAE | persistence MAE | ratio |
 |---|---|---|---:|---:|---:|
-| 4159 | LSTM | 2013-12-17 10:00 | 52.2 | 20.5 | **2.55** |
-| 4159 | LSTM | 2013-12-18 09:50 | 60.2 | 26.4 | **2.28** |
-| 4159 | LSTM | 2013-12-19 09:50 | 53.0 | 27.0 | **1.96** |
-| 4556 | LightGBM | 2013-12-22 11:50 | 52.2 | 30.0 | 1.74 |
-| 4159 | LightGBM | 2013-12-16 10:00 | 33.1 | 19.3 | 1.72 |
-| 4556 | LightGBM | 2013-12-16 11:40 | 44.6 | 28.2 | 1.58 |
+| 5259 | LightGBM | 2013-12-19 12:20 | 172.6 | 135.0 | **1.28** |
+| 5161 | harmonic ARIMA | 2013-12-22 14:00 | 253.4 | 199.1 | **1.27** |
+| 5161 | LightGBM | 2013-12-17 13:00 | 229.3 | 180.0 | **1.27** |
+| 5259 | LSTM | 2013-12-19 11:50 | 158.8 | 131.0 | **1.21** |
+| 5059 | LSTM | 2013-12-19 10:50 | 134.5 | 113.5 | **1.19** |
+| 5259 | LightGBM | 2013-12-17 13:10 | 150.2 | 127.6 | **1.18** |
 
-**The LSTM's poor result on square 4159 is a weekday-morning failure, not a general one.** Its three worst six-hour windows all start at about 09:50 on consecutive weekdays (17, 18 and 19 December). In those windows its error is 2.0 to 2.6 times the persistence error. Its weekday MAE is 24.13 against a weekend MAE of 12.03, the most lopsided split of any model. Persistence, by comparison, has 17.41 and 12.31. The model misses the morning ramp on the area with the least traffic, and it does fine there at weekends.
+The worst six-hour windows are mild. The largest ratio is 1.28, meaning persistence would have been 28% better over that stretch. The failures are spread across models and areas, concentrated in the afternoon on weekdays. No model has a systematic failure pattern like a recurring morning or weekend collapse.
 
-**Harmonic ARIMA's advantage on square 5161 works the other way: it holds only on weekdays.** It is the best model of all on weekdays (MAE 74.96), but it is worse than persistence at weekends (105.33 against 103.90), a weekend penalty of 1.41. Its overall win on that area comes entirely from working days.
+**Harmonic ARIMA's advantage on square 5161 holds only on weekdays.** It is the best model of all on weekdays (MAE 74.96), but it is worse than persistence at weekends (105.33 against 103.90), a weekend penalty of 1.41. Its overall win on that area comes entirely from working days. Square 5259 shows the opposite pattern: all models and persistence itself have a weekend penalty below 1.0, because the office-district traffic drops sharply at weekends.
 
 ![Residual ACF](figures/residual_acf_test_5161.png)
 
@@ -612,13 +608,13 @@ The stress split runs from 23 December to 1 January. It holds four of the eight 
 
 **Table 16 — MASE on the held-out stress split, relative to persistence on the same area.**
 
-| Model | 5161 | 4159 | 4556 |
+| Model | 5161 | 5059 | 5259 |
 |---|---:|---:|---:|
-| persistence (absolute MASE) | 0.198 | 0.124 | 0.206 |
-| harmonic ARIMA | +9.0% | **−1.9%** | +7.9% |
-| LightGBM | +68.6% | +133.1% | +139.8% |
-| LSTM | +78.0% | +95.8% | +103.2% |
-| seasonal naive | +538.6% | +204.7% | +144.7% |
+| persistence (absolute MASE) | 0.198 | 0.212 | 0.064 |
+| harmonic ARIMA | +9.0% | +16.4% | **−7.3%** |
+| LightGBM | +68.6% | +53.9% | +49.6% |
+| LSTM | +72.1% | +112.6% | +103.5% |
+| seasonal naive | +538.6% | +509.7% | +887.4% |
 
 ![Cross-area MASE, stress](figures/cross_area_mase_stress.png)
 
@@ -628,15 +624,15 @@ The stress split runs from 23 December to 1 January. It holds four of the eight 
 
 **Figure 23 —** LightGBM on square 5161 over the holiday period, where it gets 68.6% worse than persistence.
 
-**Persistence wins outright on two of the three areas.** Both learned models get much worse. LightGBM is up to 140% worse and the LSTM up to 103% worse. The harmonic model stays within 9% and beats persistence on one area.
+**Persistence wins outright on two of the three areas.** Both learned models get much worse. LightGBM is 50–69% worse and the LSTM ensemble 72–113% worse. The harmonic model stays within 16% and **beats persistence on square 5259** (−7.3%).
 
 The two baselines also move in **opposite directions**, which shows what the holidays do to the series. Persistence gets easier (MASE 0.267 → 0.198 on square 5161) because traffic gets smoother. Seasonal naive falls apart past MASE 1.0 (0.975 → 1.266). That is worse than the in-sample naive forecast it is scaled against. The weekly pattern it relies on is exactly what Christmas and New Year break.
 
-I **predicted LightGBM's failure before running the split**. My design notes say a tree ensemble cannot predict beyond the range of its training targets. They name the stress split as the place where that limit should show. LightGBM is the worst model apart from seasonal naive on all three areas. Its R² drops to 0.474 on square 4159, against 0.878 for persistence. This is the clearest result in the study. The ranking from a well-behaved week does not survive a change in the data. And the model with the most capacity to fit the training data is the one that does worst outside it.
+I **predicted LightGBM's failure before running the split**. My design notes say a tree ensemble cannot predict beyond the range of its training targets. They name the stress split as the place where that limit should show. LightGBM is the worst model apart from seasonal naive on all three areas. This is the clearest result in the study. The ranking from a well-behaved week does not survive a change in the data. And the model with the most capacity to fit the training data is the one that does worst outside it.
 
 ### 7.4 Limitations
 
-1. **I tuned hyperparameters on one area only.** The LSTM's failure on square 4159 is partly a *transfer* result. It took a configuration and epoch count picked on the highest-traffic area. Tuning each area separately was beyond my compute budget. So the evidence cannot separate a limit of the architecture from a failure to transfer.
+1. **I tuned hyperparameters on one area only.** The selected configuration and epoch count come from the highest-traffic area. Tuning each area separately was beyond my compute budget. So the evidence cannot fully separate the limits of each architecture from a failure to transfer settings across areas.
 2. **There is one test week.** The reported results rest on a single seven-day window fixed by the brief. The stress split gives a second, deliberately harder window. Neither replaces repeated testing across many weeks.
 3. **The staged search does not give the same answer on different devices.** On the CPU the LSTM sweep chose a sequence length of 288. On the GPU it chose 144. A candidate that stopped at epoch 17 on one device stopped at epoch 2 on the other. Different kernels give slightly different numbers, and early stopping with patience 5 on a noisy validation curve turns that into a different architecture choice. The selection should not be presented as inevitable.
 4. **There are only three areas.** Any conclusion about how performance changes with area characteristics rests on three points.
@@ -753,10 +749,10 @@ The analysis produces the following figures. The body of the report refers to th
 
 | Figure family | Files | Shows |
 |---|---|---|
-| Error-by-hour | `error_by_hour_test_{5161,4556}.png` | Error against hour of day for the two areas not shown as Figure 20 |
+| Error-by-hour | `error_by_hour_test_{5161,5259}.png` | Error against hour of day for the two areas not shown as Figure 20 |
 | Error heatmaps | `error_heatmap_test_{area}_{model}.png` (9) | Error over day-of-week × hour-of-day per model per area |
-| Residual ACF | `residual_acf_test_{4159,4556}.png` | Residual autocorrelation for the two areas not shown as Figure 21 |
-| Cross-correlation | `cross_correlation_test_{4159,4556}.png` | Copying diagnostic for the two areas not shown as Figure 19 |
+| Residual ACF | `residual_acf_test_{5059,5259}.png` | Residual autocorrelation for the two areas not shown as Figure 21 |
+| Cross-correlation | `cross_correlation_test_{5059,5259}.png` | Copying diagnostic for the two areas not shown as Figure 19 |
 | Stress forecasts | `forecast_stress_{area}_{model}.png` (9) | All three models on all three areas over the holiday period |
 
 ## Appendix C — Declaration on the use of AI tools
